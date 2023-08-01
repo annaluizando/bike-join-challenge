@@ -6,11 +6,15 @@ import DefaultImage from "/bike.svg";
 
 const BikeCasesGrid = styled.div`
     display: grid;
-    width: 50rem;
+    /* width: 50rem; */
     height: 180rem;
     justify-items: right;
-    /* justify-items: center; */
-    /* height: 700px; */
+    align-items: center;
+
+    @media screen and (max-width: 890px){
+        height: 300rem;
+        justify-items: center;
+    }
 `; 
 
 // breakpoint: 700
@@ -24,11 +28,25 @@ const BikeCardContainer = styled.div`
     background-color: white;
     border: 2px solid #0D1B2A;
     border-radius: 4px;
+
+    @media screen and (max-width: 890px){
+        display: grid;
+        justify-content: center;
+        justify-items: center;
+        align-content: space-between;
+        height: 450px;
+        width: 350px;
+    }
 `;
 
-const SideTextContainer = styled.div`
+const TextContainer = styled.div`
     width: 310px;
     margin-right: 3rem;
+
+    @media screen and (max-width: 890px){
+        margin-right: 0rem;
+        margin-bottom: 2rem;
+    }
 `;
 
 const Title = styled.h2`
@@ -125,6 +143,8 @@ export default function BikeCases() {
 
     }, []);
 
+    //function to format unix timestamp that is recieved by the api
+
     function formatUnixTimestamp(unixTimestamp) {
         const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
         const year = date.getFullYear();
@@ -158,12 +178,12 @@ export default function BikeCases() {
 
                         {/* search if its semanticall to create a image tag instead of putting a img with classname */}
                         
-                        <SideTextContainer>
+                        <TextContainer>
                             <Title>{theftcase.title}</Title>
                             <Description>{theftcase.description}</Description>
                             <TheftDate>Theft date: {formatUnixTimestamp(theftcase.date_stolen)} - Location: {theftcase.stolen_location}</TheftDate>
                             <ReportDate>Report date: {}</ReportDate>
-                        </SideTextContainer>
+                        </TextContainer>
 
                     </BikeCardContainer>
                 )

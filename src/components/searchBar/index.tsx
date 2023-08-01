@@ -2,31 +2,43 @@ import styled from 'styled-components';
 import calendar from '../../assets/calendar.svg';
 
 const SearchContainer = styled.div`
-    width: 90vw;
-    height: 55px;
+    width: 75vw;
     display: flex;
+    margin-bottom: 2rem;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media screen and (max-width: 889px){
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
 `;
 
-const InputFields = styled.input`
-    margin-right: 0.5rem;
+const InputField = styled.input`
     border: 2px solid #1B263B;
     border-radius: 5px;
-    width: 685px;
+    width: 650px;
     height: 25px;
+    @media screen and (max-width: 600px){
+        width: 100%;
+    }
+    @media screen and (min-width: 890px) and (max-width: 1088px){
+        width: 400px;
+    }
 `;
 
-const SmallerInputFields = styled(InputFields)`
+const SmallerInputFields = styled(InputField)`
     height: 25px;
     width: 60px;
+    @media screen and (min-width: 600px) and (max-width: 890px){
+        width: 95px;
+    }
 `;
 
 const ConfirmButton = styled.button`
     color: #E0E1DD;
     background: #1B263B;
-    width: 100px;
-    height: 30px;
+    width: 120px;
+    height: 35px;
     border: none;
     border-radius: 5px;
 
@@ -37,15 +49,14 @@ const ConfirmButton = styled.button`
 `;
 
 const CalendarIcon = styled.button`
-    margin-right: 0.5rem;
     background-image: url(${calendar});
     background-color: none;
     border: none;
     background-repeat: no-repeat;
     background-size: contain;
     padding: 0;
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
 `;
 
 export default function SearchBar() {
@@ -58,7 +69,7 @@ export default function SearchBar() {
         <>
             <form>
                 <SearchContainer>
-                    <InputFields type='text' placeholder='Search case descriptions'></InputFields>
+                    <InputField type='text' placeholder='Search case descriptions'></InputField>
                     <SmallerInputFields type='text' placeholder='from'></SmallerInputFields>
                     <CalendarIcon></CalendarIcon>
                     {/* <img src={calendar} height={26} width={26} alt='calendar'></img> */}
@@ -74,6 +85,6 @@ export default function SearchBar() {
 export{
     SearchBar,
     SearchContainer,
-    InputFields,
+    InputField,
     ConfirmButton,
 }
