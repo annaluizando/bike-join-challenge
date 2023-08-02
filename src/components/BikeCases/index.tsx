@@ -21,6 +21,7 @@ const BikeCasesGrid = styled.div`
 
 const BikeCardContainer = styled.div`
     display: flex;
+    gap: 1.5rem;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -45,7 +46,7 @@ const TextContainer = styled.div`
 
     @media screen and (max-width: 890px){
         margin-right: 0rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
 `;
 
@@ -78,7 +79,8 @@ export default function BikeCases() {
     // it is working, it's returning number of stolen bikes by the result of search
 
     const [totalPosts, setTotalPosts] = useState([]);
-
+    const [theftCase, setTheftCase] = useState<TheftCase[]>([]);
+    
     useEffect(() => {
         async function getPosts() {
             fetch('https://bikeindex.org:443/api/v3/search/count?location=IP&distance=10&stolenness=stolen')
@@ -95,57 +97,47 @@ export default function BikeCases() {
             setTotalPosts(totalPosts);
         }
         getPosts();
-    }, []);
 
-    const [theftCase, setTheftCase] = useState([]);
-    
-    useEffect(() => {
-        async function getCase () {
-            await fetch('https://bikeindex.org:443/api/v3/search?page=1&per_page=10&location=Berlin&distance=10&stolenness=stolen') // see how to change it to just show things in berlin area
-            .then((response) => response.json())
-            .then((data) => {
-
-                setTheftCase(data.bikes);
-
-            })
-            .catch((err) => {
-                console.error(
-                    "Ooops, something went wrong"
-                    )
-            });
-            
-        }
+        async function getRegister(theftcase: TheftCase) {
+            try {
+              const response = await fetch(`https://bikeindex.org:443/api/v3/bikes/${theftcase.id}`);
+              const data = await response.json();
+              return formatUnixTimestamp(data.bike.registration_created_at);
+            } catch (err) {
+              console.error("Ooops, something went wrong");
+              return undefined;
+            }
+          }
+          
+        
+        async function getCase() {
+            try {
+              const response = await fetch('https://bikeindex.org:443/api/v3/search?page=1&per_page=10&location=Berlin&distance=10&stolenness=stolen');
+              const data = await response.json();
+          
+              const theftCasesWithDates: TheftCase[] = await Promise.all(
+                data.bikes.map(async (theftcase: TheftCase) => {
+                  theftcase.date_stolen = formatUnixTimestamp(theftcase.date_stolen);
+                  theftcase.registration_created_at = await getRegister(theftcase);
+                  return theftcase;
+                })
+              );
+          
+              setTheftCase(theftCasesWithDates);
+            } catch (err) {
+              console.error("Ooops, something went wrong");
+            }
+          }
         
         getCase();
         
     }, []);
     
 
-    const [registrerdateunix, setRegistrerDate] = useState ();
-
-    
-    useEffect(() => {
-        async function getById(theftcase: TheftCase) {
-            await fetch(`https://bikeindex.org:443/api/v3/bikes/${theftcase.id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                
-                // setRegistrerDate(data.bike.registration_created_at);
-                // console.log(data.bike.registration_created_at)
-                
-            })
-            .catch((err) => {
-                console.error(
-                    "Ooops, something went wrong"
-                    )
-                });
-            }
-
-    }, []);
 
     //function to format unix timestamp that is recieved by the api
 
-    function formatUnixTimestamp(unixTimestamp) {
+    function formatUnixTimestamp(unixTimestamp: any) {
         const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -167,7 +159,6 @@ export default function BikeCases() {
                 
                 return(
                     
-                    
                     <BikeCardContainer key={theftcase.id}>
                         
                         {theftcase && theftcase.large_img ? (
@@ -181,8 +172,8 @@ export default function BikeCases() {
                         <TextContainer>
                             <Title>{theftcase.title}</Title>
                             <Description>{theftcase.description}</Description>
-                            <TheftDate>Theft date: {formatUnixTimestamp(theftcase.date_stolen)} - Location: {theftcase.stolen_location}</TheftDate>
-                            <ReportDate>Report date: {}</ReportDate>
+                            <TheftDate>Theft date: {theftcase.date_stolen} - Location: {theftcase.stolen_location}</TheftDate>
+                            <ReportDate>Report date: {theftcase.registration_created_at}</ReportDate>
                         </TextContainer>
 
                     </BikeCardContainer>

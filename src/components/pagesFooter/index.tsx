@@ -1,31 +1,48 @@
 import styled from "styled-components";
 
 const FooterContainer = styled.div`
-    width: 100%;
+    width: 60%;
     height: 55px;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 `;
 
 const BiggerButton = styled.button`
-    width: 35px;
-    height: 15px;
+    background-color: #1B263B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 95px;
+    height: 30px;
 `; 
 
 const SmallerButton = styled.button`
-    width: 15px;
-    height: 15px;
+    background-color: transparent;
+    border: none;
+    width: 25px;
+    height: 30px;
+`;
+
+const SelectedPage = styled.button`
+    width: 30px;
+    height: 30px;
+    border-color: #1B263B;
+    border-radius: 20px;
+    background-color: transparent;
 `;
 
 export default function Footer() {
     return(
         <FooterContainer>
-            <BiggerButton>First</BiggerButton>
+            {/* <BiggerButton>First</BiggerButton> */}
             <BiggerButton>Prev</BiggerButton>
-            <SmallerButton></SmallerButton>
+            <SmallerButton>1</SmallerButton>
+            <SelectedPage>1</SelectedPage>
+            <SmallerButton>1</SmallerButton>
             <BiggerButton>Next</BiggerButton>
-            <BiggerButton>Last</BiggerButton>
+            {/* <BiggerButton>Last</BiggerButton> */}
         </FooterContainer>
     );
 }

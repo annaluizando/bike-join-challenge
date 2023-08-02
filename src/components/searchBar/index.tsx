@@ -50,13 +50,14 @@ const ConfirmButton = styled.button`
 
 const CalendarIcon = styled.button`
     background-image: url(${calendar});
-    background-color: none;
+    background-color: transparent;
     border: none;
     background-repeat: no-repeat;
     background-size: contain;
     padding: 0;
     height: 20px;
     width: 20px;
+    cursor: pointer;
 `;
 
 export default function SearchBar() {
