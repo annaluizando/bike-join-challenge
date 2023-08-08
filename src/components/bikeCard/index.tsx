@@ -28,7 +28,7 @@
 // export default function BikeCard() {
 //     return(
 //        <BikeCardContainer>
-            
+
 //             <img alt="bike-img"></img>
 //             <SideTextContainer>
 //                 <Title>Stolen 2015 Gepida Alboin crs 500</Title>
