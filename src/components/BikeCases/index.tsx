@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { Description } from "../../globals";
 import { TheftCase } from "../../types/bike";
-import DefaultImage from "/bike.svg";
+import DefaultImage from "../../public/bike.svg";
 import Loading from "../loading";
 
 const BikeCasesGrid = styled.div`
@@ -27,9 +27,9 @@ const BikeCardContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 250px;
-  background-color: white;
+  background-color: #181F2D;
   border: 2px solid #0d1b2a;
-  border-radius: 4px;
+  border-radius: 10px;
 
   @media screen and (max-width: 890px) {
     display: grid;
@@ -38,6 +38,11 @@ const BikeCardContainer = styled.div`
     align-content: space-between;
     height: 450px;
     width: 350px;
+  }
+
+  &:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
   }
 `;
 
@@ -53,18 +58,22 @@ const TextContainer = styled.div`
 
 const Title = styled.h2`
   font-size: 14px;
+  color: white;
 `;
 
 const TheftDate = styled(Description)`
   font-style: italic;
+  color: white;
 `;
 const ReportDate = styled(Description)`
   font-style: italic;
+  color: white;
 `;
 
 const BikeImage = styled.img`
   height: 250px;
   width: 350px;
+  border-radius: 10px 0 0 10px;
 `;
 
 const DefaultImageContainer = styled.div`
@@ -173,8 +182,7 @@ export default function BikeCases() {
                   ></BikeImage>
                 ) : (
                   <DefaultImageContainer>
-                    {" "}
-                    <img src={DefaultImage} />{" "}
+                    <img src={DefaultImage} height={72} width={72} />
                   </DefaultImageContainer>
                 )}
 

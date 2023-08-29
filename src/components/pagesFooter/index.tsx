@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 const FooterContainer = styled.div`
-  width: 60%;
+  width: 100%;
   height: 55px;
   margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  @media screen and (min-width: 1295px){
+    width: 90%;
+  }
 `;
 
 const BiggerButton = styled.button`
@@ -20,6 +23,7 @@ const BiggerButton = styled.button`
 
 const SmallerButton = styled.button`
   background-color: transparent;
+  color: white;
   border: none;
   width: 25px;
   height: 30px;
@@ -28,7 +32,8 @@ const SmallerButton = styled.button`
 const SelectedPage = styled.button`
   width: 30px;
   height: 30px;
-  border-color: #1b263b;
+  color: white;
+  border-color: white;
   border-radius: 20px;
   background-color: transparent;
 `;

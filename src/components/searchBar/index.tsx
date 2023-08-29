@@ -1,36 +1,56 @@
 import styled from "styled-components";
 import calendar from "../../assets/calendar.svg";
+import logo from "../../public/bike_report.svg";
+
 
 const SearchContainer = styled.div`
-  width: 75vw;
+  width: 65vw;
   display: flex;
-  margin-bottom: 2rem;
   align-items: center;
   justify-content: space-between;
-  @media screen and (max-width: 889px) {
+  /* @media screen and (min-width: 891px) and (max-width: 1010px){
+    width: 10vw;
+  } */
+  @media screen and (max-width: 479px) {
+    width: 41vw
+  }
+  @media screen and (max-width: 1300px) {
+    width: 65vw;
     flex-wrap: wrap;
     gap: 0.5rem;
+  }
+  @media screen and (min-width: 1590px) and (max-width: 1800px){
+    width: 65vw;
+  }
+  @media screen and (min-width: 1800px){
+    width: 55vw;
   }
 `;
 
 const InputField = styled.input`
-  border: 2px solid #1b263b;
+  background-color: #181F2D;
+  border: none;
   border-radius: 5px;
-  width: 650px;
-  height: 25px;
+  color: white;
+  width: 65vw;
+  height: 33px;
+  font-family: "Poppins", sans-serif;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
-  @media screen and (min-width: 890px) and (max-width: 1088px) {
-    width: 400px;
+    @media screen and (min-width: 1300px){
+    width: 33vw;
   }
+
 `;
 
 const SmallerInputFields = styled(InputField)`
-  height: 25px;
   width: 60px;
+  height: 33px;
+  color: white;
+  font-family: "Poppins", sans-serif;
   @media screen and (min-width: 600px) and (max-width: 890px) {
-    width: 95px;
+    width: 50px;
   }
 `;
 
@@ -60,37 +80,88 @@ const CalendarIcon = styled.button`
   cursor: pointer;
 `;
 
+const NavBarContainer = styled.div`
+  display: flex;
+  width: 65vw;
+`;
+
+const Logo = styled.img`
+  height: 66px;
+  margin-right: 1rem;
+  @media screen and (min-width: 875px) {
+    width: 212px;
+  }
+`;
+
+const Form = styled.div`
+  display: grid;
+  align-items: center;
+  width: 65vw;
+
+`;
+
+const SmallerInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20vw;
+
+  @media screen and (max-width: 750px) and (max-width: 1300px){
+    width: 15vw;
+  }
+  @media screen and (max-width: 750px) {
+    width: 38vw;
+  }
+  @media screen and (min-width: 1800px){
+    width: 12vw;
+  }
+`;
+
+const GeneralContainer = styled.div`
+  margin-top: 1.5rem;
+  display: flex;
+`;
+
+
 export default function SearchBar() {
   // const handleClick = async () => {
   //     const result = await
   // }
 
   return (
-    <>
-      <form>
-        <SearchContainer>
-          <InputField
-            type="text"
-            placeholder="Search case descriptions"
-          ></InputField>
-          <SmallerInputFields
-            type="text"
-            placeholder="from"
-          ></SmallerInputFields>
-          <CalendarIcon></CalendarIcon>
-          {/* <img src={calendar} height={26} width={26} alt='calendar'></img> */}
-          <SmallerInputFields type="text" placeholder="to"></SmallerInputFields>
-          <CalendarIcon></CalendarIcon>
-          <ConfirmButton
-            type="submit"
-            value="Submit"
-            onClick={() => handleClick()}
-          >
-            Find cases
-          </ConfirmButton>
-        </SearchContainer>
-      </form>
-    </>
+    <GeneralContainer>
+
+      <Logo src={logo} alt="bike-logo"></Logo>
+      <NavBarContainer>
+        <Form>
+          <SearchContainer>
+            <InputField
+              type="text"
+              placeholder="Search case descriptions"
+            ></InputField>
+
+            <SmallerInputContainer>
+              <SmallerInputFields
+                type="text"
+                placeholder="from"
+              ></SmallerInputFields>
+              <CalendarIcon></CalendarIcon>
+              {/* <img src={calendar} height={26} width={26} alt='calendar'></img> */}
+              <SmallerInputFields type="text" placeholder="to"></SmallerInputFields>
+              <CalendarIcon></CalendarIcon>
+            </SmallerInputContainer>
+
+            <ConfirmButton
+              type="submit"
+              value="Submit"
+              onClick={() => handleClick()}
+            >
+              Find cases
+            </ConfirmButton>
+          </SearchContainer>
+        </Form>
+      </NavBarContainer>
+    </GeneralContainer>
   );
 }
 
